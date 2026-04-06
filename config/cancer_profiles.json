@@ -1,0 +1,52 @@
+[
+  {
+    "profile_name": "baseline_fam_scan",
+    "keyword_groups": {
+      "breast": [
+        "breast cancer",
+        "BRCA1",
+        "BRCA2",
+        "TP53",
+        "PTEN",
+        "STK11",
+        "CDH1",
+        "PALB2",
+        "CHEK2",
+        "Li-Fraumeni syndrome",
+        "Cowden syndrome",
+        "Peutz-Jeghers syndrome"
+      ],
+      "ovarian": [
+        "ovarian cancer",
+        "BRCA1",
+        "BRCA2",
+        "RAD51C",
+        "RAD51D",
+        "BRIP1",
+        "Lynch Syndrome"
+      ],
+      "colorectal": [
+        "colorectal cancer",
+        "APC",
+        "MLH1",
+        "MSH2",
+        "MSH6",
+        "PMS2",
+        "EPCAM",
+        "MUTYH",
+        "familial adenomatous polyposis",
+        "MUTYH-associated polyposis",
+        "Lynch syndrome"
+      ]
+    },
+    "icd_prefixes": [
+      "V16",
+      "Z80"
+    ],
+    "extract_regex": "Family History:\\n(.*?)\\n\\n",
+    "trim_after_headers": [
+      "Physical Exam:"
+    ]
+  }
+]
+

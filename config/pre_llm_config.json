@@ -1,0 +1,186 @@
+{
+  "paths": {
+    "discharge_csv": "MIMIC Data/mimic-iv-note-deidentified-free-text-clinical-notes-2.2/note/discharge.csv",
+    "admissions_csv": "MIMIC Data/mimic-iv-2.2/hosp/admissions.csv",
+    "diagnoses_icd_csv": "MIMIC Data/mimic-iv-2.2/hosp/diagnoses_icd.csv",
+    "patients_csv": "MIMIC Data/mimic-iv-2.2/hosp/patients.csv",
+    "artifacts_root": "artifacts/pre_llm"
+  },
+  "family_history": {
+    "extract_regex": "Family History:\\n(.*?)\\n\\n",
+    "trim_after_headers": [
+      "Physical Exam:"
+    ],
+    "text_column": "text",
+    "subject_id_column": "subject_id",
+    "note_id_column": "note_id"
+  },
+  "keywords": {
+    "breast": [
+      "breast cancer",
+      "BRCA1",
+      "BRCA2",
+      "TP53",
+      "PTEN",
+      "STK11",
+      "CDH1",
+      "PALB2",
+      "CHEK2",
+      "Li-Fraumeni syndrome",
+      "Cowden syndrome",
+      "Peutz-Jeghers syndrome"
+    ],
+    "ovarian": [
+      "ovarian cancer",
+      "BRCA1",
+      "BRCA2",
+      "RAD51C",
+      "RAD51D",
+      "BRIP1",
+      "Lynch Syndrome"
+    ],
+    "colorectal": [
+      "colorectal cancer",
+      "APC",
+      "MLH1",
+      "MSH2",
+      "MSH6",
+      "PMS2",
+      "EPCAM",
+      "MUTYH",
+      "familial adenomatous polyposis",
+      "MUTYH-associated polyposis",
+      "Lynch syndrome"
+    ]
+  },
+  "structured_data": {
+    "icd_code_column": "icd_code",
+    "icd_prefixes": [
+      "V16",
+      "Z80"
+    ]
+  },
+  "cohort": {
+    "strict_cohort_source": "keyword_positive_notes",
+    "refiners": {
+      "enabled": false,
+      "genders": [],
+      "age_min": null,
+      "age_max": null,
+      "cancer_types": [],
+      "note_length_min": null,
+      "note_length_max": null,
+      "notes_per_patient_min": null,
+      "notes_per_patient_max": null
+    }
+  },
+  "export_subset": {
+    "enabled": true,
+    "max_patients": 250,
+    "age_min": null,
+    "age_max": null,
+    "records_per_patient_min": null,
+    "records_per_patient_max": null,
+    "random_seed": 42
+  },
+  "garde_export": {
+    "enabled": true
+  },
+  "garde": {
+    "ehr_pat_id_code_system": "http://epic.com/uhealth/clarity/patient.pat_id",
+    "ehr_sex_code_system": "http://epic.com/uhealth/clarity/zc_sex",
+    "ehr_religion_code_system": "http://epic.com/uhealth/clarity/zc_religion",
+    "family_history": {
+      "max_length": 1500,
+      "code_systems": {
+        "ehr_family_hx_id": "http://epic.com/uhealth/clarity/family_hx/pat_id__pat_enc_csn_id__line",
+        "ehr_enc_id": "http://epic.com/uhealth/clarity/pat_enc.pat_enc_csn_id",
+        "ehr_cond": "http://epic.com/uhealth/clarity/zc_medical_hx",
+        "ehr_relation": "http://epic.com/uhealth/clarity/zc_relation"
+      },
+      "placeholders": {
+        "ehr_cond_code": "29",
+        "ehr_cond_label": "OTHER",
+        "ehr_relation_code": "14",
+        "ehr_relation_label": "OTHER"
+      }
+    }
+  },
+  "llm": {
+    "provider": "openai",
+    "api_key_env": "OPENAI_API_KEY",
+    "model": "gpt-5-mini",
+    "azure_api_version": "2024-02-15-preview",
+    "azure_endpoint_env": "AZURE_OPENAI_ENDPOINT",
+    "azure_api_key_env": "AZURE_OPENAI_API_KEY",
+    "temperature": 0.7,
+    "max_tokens": 2048,
+    "max_tokens_cap": 8192
+  },
+  "religion": {
+    "labels": [
+      "No Spiritual Preference",
+      "The Church of Jesus Christ of Latter Day Saints",
+      "Did not Ask",
+      "Catholic",
+      "Christian",
+      "Agnostic",
+      "No Spiritual Needs",
+      "Atheist",
+      "Spiritual, not Religious",
+      "Non-Denominational Christian",
+      "Jehovah's Witness",
+      "Inactive LDS",
+      "Muslim",
+      "Buddhist",
+      "Episcopalian",
+      "Not on List",
+      "Jewish",
+      "Baptist",
+      "Declined to Answer",
+      "Pagan",
+      "Presbyterian",
+      "Lutheran",
+      "Not Verified",
+      "Islamic",
+      "Protestant",
+      "Hindu",
+      "Greek Orthodox",
+      "Nature",
+      "Christian Scientist",
+      "Wiccan",
+      "New Thought",
+      "Shamanism",
+      "Taoist",
+      "Humanist",
+      "Evangelical",
+      "Do Not Visit",
+      "Methodist",
+      "Unitarian",
+      "Deist",
+      "Did not Indicate",
+      "Unable to Answer"
+    ],
+    "counts": [171, 140, 87, 61, 48, 28, 23, 13, 12, 9, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  },
+  "quality_checks": {
+    "required_discharge_columns": [
+      "subject_id",
+      "note_id",
+      "text"
+    ],
+    "required_structured_columns": {
+      "admissions": [
+        "subject_id"
+      ],
+      "diagnoses_icd": [
+        "subject_id",
+        "icd_code"
+      ],
+      "patients": [
+        "subject_id"
+      ]
+    }
+  }
+}
+

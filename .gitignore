@@ -1,0 +1,19 @@
+.env
+*.pyc
+__pycache__/
+node_modules/
+dist/
+.venv/
+venv/
+*.tsbuildinfo
+.pytest_cache/
+.DS_Store
+.cursor/
+artifacts/
+MIMIC Data/
+GARDE/
+GARDE_demo_files/
+epic_family_history_processor/
+/family_history_validated_100_copy_unopened.csv
+/FAM-SCAN MIMIC Manuscript v1_in_progress.docx
+/Final 3 GARDE Demographics CSV generation.ipynb
